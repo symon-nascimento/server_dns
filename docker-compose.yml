@@ -1,0 +1,16 @@
+version: '2'
+services:
+  dns:
+    restart: always
+    image: strm/dnsmasq
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - .docker/config/dnsmask/dnsmasq.confdnsmasq.conf:/etc/dnsmasq.conf
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+
+    cap_add:
+      - NET_ADMIN
+    command: --log-facility=-
